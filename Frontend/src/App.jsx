@@ -15,6 +15,7 @@ import Footer from './Components/Partials/Footer';
 import NavigationBar from './Components/Partials/NavigationBar';
 import ProductDetails from './Components/Products/ProductDetails';
 import Products from './Components/Shop/Products';
+import Payments from './Components/Payments/Payments';
 import LineBreak from './Components/Partials/LineBreak';
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
+                <Route path="/payments" element={<Payments />} />
                 <Route path="/cart" element={
                   <ProtectedRoute>
                     <Cart />

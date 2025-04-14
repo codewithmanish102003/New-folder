@@ -21,13 +21,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+
+
 //2.create a product
 router.post('/create', isLoggedInUser, upload.single('image'), async (req, res) => {
     console.log("create product");
     
     try {
         const { name, price, discount, bgcolor, panelcolor, textcolor, description } = req.body;
-        const ownerId = req.user._id;
+        const ownerId = req.user._id; // This will only exist if the user is logged in
         const image = req.file ? req.file.buffer : null;
 
         if (!image) {
@@ -42,6 +45,10 @@ router.post('/create', isLoggedInUser, upload.single('image'), async (req, res) 
             panelcolor,
             textcolor,
             description,
+            description,
+            category,
+            stock,
+            brand,
             owner: ownerId,
             image,
         });
@@ -62,16 +69,20 @@ router.delete('/delete/:id', isLoggedInUser, async (req, res) => {
     console.log("delete product");
     try {
         const productId = req.params.id;
-        const product = await product
 
-        Model.findByIdAndDelete(productId);
+        // Find and delete the product
+        const product = await productModel.findByIdAndDelete(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
         res.json({ message: "Product deleted successfully" });
     } catch (error) {
         console.error("Error deleting product:", error);
         res.status(500).json({ error: error.message });
     }
-}
-);
+});
 
 //4.updating a created product
 router.put('/update/:id', isLoggedInUser, async (req, res) => {
@@ -90,13 +101,31 @@ router.put('/update/:id', isLoggedInUser, async (req, res) => {
 
 
 //5.owner products
-router.get('/owner-products', isLoggedInUser, async (req, res) => {
+router.get('/ownerproducts', isLoggedInUser, async (req, res) => {
     try {
-        const ownerId = req.user._id; // Assuming req.user contains the logged-in user's details
+        const ownerId = req.user._id;
         const products = await productModel.find({ owner: ownerId });
         res.json(products);
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch owner's products" });
+    }
+});
+
+//6.fetching a single product by id
+router.get('/:id([0-9a-fA-F]{24})', async (req, res) => {
+    console.log("fetching single product")
+    try {
+        let product = await productModel.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+        product = {
+            ...product._doc,
+            image: product.image ? product.image.toString('base64') : null
+        };
+        res.json(product);
+    } catch (err) {
+        res.status(500).json({ error: "Something went wrong" });
     }
 });
 

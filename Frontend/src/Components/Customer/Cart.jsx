@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaMinus, FaPlus, FaShoppingBag, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartProductsThunk, removeProductThunk, updateQuantityThunk } from '../../app/features/cart/cartThunk';
@@ -222,7 +223,7 @@ const Cart = () => {
               </div>
             </div>
             <button className="w-full mt-6 bg-purple-500 text-white py-3 rounded-lg hover:bg-purple-600 transition-colors flex items-center justify-center space-x-2">
-              <span>Proceed to Checkout</span>
+              <Link to="/payments"><span>Proceed to Checkout</span></Link>
             </button>
           </div>
         </div>

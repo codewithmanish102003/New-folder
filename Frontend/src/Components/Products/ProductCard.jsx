@@ -1,5 +1,6 @@
 import { Star, StarHalf } from "lucide-react"
 import { useState,useEffect } from "react"
+import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToCartThunk } from "../../app/features/cart/cartThunk"
 import { useSelector } from "react-redux"
@@ -98,15 +99,6 @@ const ProductCard = ({ product }) => {
               <span className="font-bold">{formatCurrency(product.price)}</span>
             )}
           </p>
-
-          {/* Description */}
-          <div className="mb-1">
-            <strong>Description:</strong>
-          </div>
-          <p className="text-sm text-gray-600 mb-3 line-clamp-3 sm:line-clamp-none">
-            {product.description}
-          </p>
-
           {/* Ratings */}
           <div className="flex items-center gap-1 mb-4">
             <strong className="text-sm mr-1">Ratings:</strong>
@@ -120,16 +112,16 @@ const ProductCard = ({ product }) => {
         {/* Add to cart button */}
         <div className="mt-auto flex gap-4 ">
           <button
-            className="w-full sm:w-auto bg-purple-500  text-white font-bold py-2 px-3  hover:bg-purple-600 transition-colors rounded "
+            className="w-full sm:w-auto bg-purple-500  text-white font-bold px-6 py-3  hover:bg-purple-600 transition-colors rounded "
             onClick={handleAddToCart}
           >
             Add To Cart
           </button>
-          <button
-            className="w-full sm:w-auto bg-purple-500  text-white font-bold py-2 px-3  hover:bg-purple-600 transition-colors rounded "
+          <Link to={`/products/${product._id}`}
+            className="w-full sm:w-auto bg-purple-500  text-white font-bold px-6 py-3  hover:bg-purple-600 transition-colors rounded "
           >
-            Purchase Now
-          </button>
+           See Details
+          </Link>
         </div>
       </div>
     </div>

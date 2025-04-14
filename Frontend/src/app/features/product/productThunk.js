@@ -19,8 +19,10 @@ export const fetchProducts = createAsyncThunk(
 export const fetchProductByIdThunk = createAsyncThunk(
   "products/fetchById",
   async (productId, thunkAPI) => {
+    console.log(productId)
     try {
       const response = await fetchProductById(productId);
+      console.log(response)
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -47,7 +49,6 @@ export const fetchOwnerProductsThunk = createAsyncThunk(
   async (_, thunkAPI) => {
       try {
           const response = await fetchOwnerProducts()
-          console.log(response)
           return response;
       } catch (error) {
           return thunkAPI.rejectWithValue(error.message);

@@ -94,6 +94,8 @@ router.get('/cartproducts', isLoggedInUser, async (req, res) => {
       let cartItems = await cartModel.find({ user: userId })
         .populate('product')
         .exec();
+
+        console.log(cartItems)
   
       if (!cartItems) {
         return res.status(404).json({ error: "No cart items found" });
@@ -102,7 +104,7 @@ router.get('/cartproducts', isLoggedInUser, async (req, res) => {
       cartItems = cartItems.map(items => {
         return {
           ...items._doc,
-          image: items.product.image ? items.product.image.toString('base64') : null
+          image:items.product && items.product.image ? items.product.image.toString('base64') : null
         }
       })
   

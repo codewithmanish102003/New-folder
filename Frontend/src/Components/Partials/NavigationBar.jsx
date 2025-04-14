@@ -48,24 +48,24 @@ const NavigationBar = () => {
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <Link to="/" className="flex items-center">
+                            {/* Logo for larger screens */}
                             <div className="hidden sm:block">
                                 <h3 className="text-xl text-purple-700">💫wayCollections</h3>
                             </div>
-                           {(role === 'user') && 
-                           <div className="sm:hidden">
-                           <h3 className="text-xl">💫</h3>
-                       </div>} 
-                       {(role === 'owner') && 
-                           <div className="sm:hidden">
-                           <h3 className="text-xl text-purple-700">💫wayCollections</h3>
-                       </div>} 
-                            
+                            {/* Logo for mobile screens */}
+                            <div className="sm:hidden">
+                                <h3 className="text-xl text-purple-700">💫</h3>
+                            </div>
+                            {(role === 'owner') &&
+                                <div className="sm:hidden">
+                                    <h3 className="text-xl text-purple-700">💫wayCollections</h3>
+                                </div>}
                         </Link>
                     </div>
 
                     {/* Search Bar */}
                     {
-                    role !== 'owner' && (
+                        role !== 'owner' && (
                             <>
                                 <div className="flex-1 max-w-xl hidden sm:block">
                                     <div className="relative">

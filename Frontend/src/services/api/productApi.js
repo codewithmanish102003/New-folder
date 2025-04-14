@@ -43,7 +43,7 @@ export const updateProduct = async (productId, productData) => {
 // Delete a product
 export const deleteProduct = async (productId) => {
   try {
-    const response = await axiosInstance.delete(`/products/${productId}`);
+    const response = await axiosInstance.delete(`/products/delete/${productId}`);
     console.log(response.data)
     return response.data;
   } catch (error) {
@@ -54,7 +54,7 @@ export const deleteProduct = async (productId) => {
 //fetch products created by owner
 export const fetchOwnerProducts = async ()=>{
   try{
-    const response = await axiosInstance.get('/products/owner-products');
+    const response = await axiosInstance.get('/products/ownerproducts');
     console.log(response)
     return response.data
   }catch{

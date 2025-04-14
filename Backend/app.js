@@ -10,7 +10,7 @@ require('dotenv').config();
 const ownersRouter = require('./routes/ownersRouter');
 const productRouter = require('./routes/productsRouter');
 const userRouter = require('./routes/userRouter');
-const cartRouter = require('./routes/cartRouter2');
+const cartRouter = require('./routes/cartRouter');
 
 const db = require('./config/mongoose_connection');
 

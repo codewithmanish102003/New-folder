@@ -4,7 +4,7 @@ const debug=require('debug')("development:mongoose")
 
 
 mongoose
-.connect(`${config.get("MONGODB_URI")}/scatch`)
+.connect(`${config.get("MONGODB_URI")}/starwayCollections`)
 .then(()=>{
     debug("connected");  
 })

@@ -7,7 +7,6 @@ import { User, LogOut, Star, Bell, Box } from "lucide-react";
 export default function UserDropdown({ setIsDropdownOpen }) {
     const dropdownRef = useRef(null);
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-    const username = useSelector((state) => state.auth.username);
     const role = useSelector((state) => state.auth.role);
     const dispatch = useDispatch();
 

@@ -11,21 +11,18 @@ router.post('/addtocart/:id', isLoggedInUser , async (req, res) => {
     const userId = req.user._id;
     const productId = req.params.id;
 
-    // Check if product is already in cart*7i
+    // Check if product is already in cart
     const existingCart = await cartModel.findOne({ user: userId, product: productId });
     if (existingCart) {
-      req.flash('error', "Product is already added");
-      res.json({ error: "Product is already added", flash: req.flash() });
+      res.json({ error: "Product is already added"});
     } else {
       // Create a new cart item
       const newCartItem = new cartModel({ user: userId, product: productId, quantity: 1 });
       await newCartItem.save();
-      req.flash('success', "Successfully added to cart");
-      res.status(201).json({ message: "Product added to cart", flash: req.flash() });
+      res.status(201).json({ message: "Product added to cart"});
     }
   } catch (err) {
-    req.flash('error', "Error while adding to cart");
-    res.status(400).json({ error: "Something went wrong", flash: req.flash() });
+    res.status(400).json({ error: "Something went wrong"});
   }
 });
 
@@ -78,7 +75,7 @@ router.delete('/removefromcart/:id', isLoggedInUser , async (req, res) => {
         return res.status(404).json({ error: 'Cart item not found' });
       }
   
-      res.status(200).json({ message: 'Product removed from cart' });
+      res.status(200).json({ success: 'Product removed from cart' });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });

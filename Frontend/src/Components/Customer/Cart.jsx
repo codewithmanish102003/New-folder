@@ -4,23 +4,12 @@ import { Link } from 'react-router-dom';
 import { FaMinus, FaPlus, FaShoppingBag, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartProductsThunk, removeProductThunk, updateQuantityThunk } from '../../app/features/cart/cartThunk';
+import { toast } from 'react-toastify'
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
   const { cart, status } = useSelector((state) => state.cart);
 
-  useEffect(() => {
-    if (success || error) {
-      const timer = setTimeout(() => {
-        setSuccess("");
-        setError("");
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [success, error]);
 
   useEffect(() => {
     fetchCartProducts();
@@ -34,34 +23,36 @@ const Cart = () => {
     try {
       dispatch(fetchCartProductsThunk());
     } catch (error) {
-      setError(error.message)
+      console.error('Error fetching cart products:', error);
+      toast.error("Error fetching cart products")
     }
   };
 
   const handleQuantityChange = (productId, operation) => {
     console.log(productId, operation)
-    try{
+    try {
       if (operation === 'decrease') {
         dispatch(updateQuantityThunk({ productId, operation: 'decrease' }));
       } else if (operation === 'increase') {
         dispatch(updateQuantityThunk({ productId, operation: 'increase' }));
       }
-    }catch(err){
-      
+    } catch (error) {
+      toast.error(error || "Error updating quantity")
     }
-    
+
   };
 
   const handleRemoveItem = async (e, item) => {
     e.preventDefault();
-    setSuccess("");
-    setError("");
     try {
       const response = await dispatch(removeProductThunk(item.product._id));
+      if (response.payload.success) {
+        toast.success("Product removed from cart")
+      }
       console.log(response.payload.message);
-      setSuccess(response.payload.message);
-    } catch (err) {
-      setError(err.message);
+    } catch (error) {
+      toast.error(error || "Error removing product from cart")
+      console.error('Error removing product from cart:', error);
     }
   };
 
@@ -84,27 +75,10 @@ const Cart = () => {
     );
   }
 
-  if (status === error) {
-    console.log(error)
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong className="font-bold">Error!</strong>
-          <span className="block sm:inline">{error}</span>
-        </div>
-      </div>
-    );
-
-  }
 
   if (!cart.length) {
     return (
       <div className="min-h-[90vh] flex flex-col items-center justify-center space-y-4">
-         {success && (
-        <div className="bg-purple-100 border border-purple-400 text-purple-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <span className="block sm:inline">{success}</span>
-        </div>
-      )}
         <FaShoppingBag className="text-gray-400 text-6xl" />
         <h2 className="text-2xl font-semibold text-gray-600">Your cart is empty</h2>
         <p className="text-gray-500">Add some items to get started!</p>
@@ -120,13 +94,7 @@ const Cart = () => {
 
   return (
     <div className="max-w-full mx-auto px-4 py-8">
-      {success && (
-        <div className="bg-purple-100 border border-purple-400 text-purple-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <span className="block sm:inline">{success}</span>
-        </div>
-      )}
       <h1 className="text-3xl font-bold mb-8 text-purple-500">Shopping Cart</h1>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <div className="space-y-4">

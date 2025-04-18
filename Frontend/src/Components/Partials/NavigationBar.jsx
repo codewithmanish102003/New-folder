@@ -4,6 +4,7 @@ import { LogOut, Menu, Search, ShoppingCart, User, X, ShoppingBag, LucideLogIn, 
 import { useSelector, useDispatch } from "react-redux";
 import { logoutThunk } from "../../app/features/auth/authThunk";
 import UserDropdown from "./UserDropdown";
+import { toast } from "react-toastify";
 
 const NavigationBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +22,7 @@ const NavigationBar = () => {
 
     const handleLogout = () => {
         dispatch(logoutThunk());
+        toast.success("Logout successful");
     };
 
     const handleMouseEnter = () => {
@@ -56,10 +58,6 @@ const NavigationBar = () => {
                             <div className="sm:hidden">
                                 <h3 className="text-xl text-purple-700">💫</h3>
                             </div>
-                            {(role === 'owner') &&
-                                <div className="sm:hidden">
-                                    <h3 className="text-xl text-purple-700">💫wayCollections</h3>
-                                </div>}
                         </Link>
                     </div>
 

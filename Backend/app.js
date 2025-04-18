@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
-const flash = require('connect-flash');
 const cors = require('cors');
 
 require('dotenv').config();
@@ -14,7 +13,6 @@ const cartRouter = require('./routes/cartRouter');
 
 const db = require('./config/mongoose_connection');
 
-app.use(flash());
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true,

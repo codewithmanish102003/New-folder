@@ -16,6 +16,21 @@ export const registerUser = async (userData) => {
   }
 };
 
+//owner register
+export const registerOwner = async (ownerData) => {
+  try{
+    const response = await axios.post(`${API_URL}/owners/register`, ownerData);
+    return response.data;
+  }catch(error){
+    console.log('Error registering user:', error.response.data.error);
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error(error.message);
+    }
+  }
+}
+
 // Login user
 export const loginUser = async (userData) => {
   try {
@@ -92,11 +107,12 @@ export const deactivateUser =async () =>{
 
 //update User details
 export const updateUser =async (user) =>{
+  console.log(user)
   try{
     const response=await axios.put(`${API_URL}/user/update`,user)
     return response.data
     }catch(error){
-      console.log("Error Occurred : ",error)
+      console.log("Error Occurred : ",error.response.data)
       throw error
       }
 }

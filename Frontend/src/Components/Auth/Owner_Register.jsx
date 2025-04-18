@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from "react-toastify";
+import { registerOwnerThunk } from "../../app/features/auth/authThunk";
+import { useDispatch } from "react-redux";
 
 const Owner_Register = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,7 @@ const Owner_Register = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,16 +32,18 @@ const Owner_Register = () => {
     e.preventDefault();
     setError("");
     if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
       setError("Passwords do not match");
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/api/owners/register", formData);
-      console.log("Registration successful:", response.data);
-      navigate("/login"); // Redirect to login page after successful registration
+      const response = await dispatch(registerOwnerThunk(formData)).unwrap();
+      toast.success(response.message);
+      navigate("/login");
     } catch (error) {
       console.error("Registration error:", error);
-      setError(error.response?.data?.message || "Registration failed. Please try again.");
+      setError(error ||"Registration failed. Please try again.");
+      toast.error(error ||"Registration failed. Please try again.");
     }
   };
 

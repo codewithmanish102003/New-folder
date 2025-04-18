@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { loginUser, logoutUser, registerUser, fetchUserDetails, deleteUser, deactivateUser,updateUser } from "../../../services/api/authApi";
+import { loginUser, logoutUser, registerUser, fetchUserDetails, deleteUser, deactivateUser,updateUser,registerOwner } from "../../../services/api/authApi";
 
 //register thunk
 export const registerUserThunk = createAsyncThunk(
@@ -9,9 +9,22 @@ export const registerUserThunk = createAsyncThunk(
       const response = await registerUser(userData)
       console.log("Registered", response)
       return response
-    } catch (err) {
-      // console.log("Failed to register user", err.message)
-      return thunkAPI.rejectWithValue(err.message)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message)
+    }
+  }
+)
+
+//register owner thunk
+export const registerOwnerThunk = createAsyncThunk(
+  "auth/registerOwner",
+  async (ownerData,thunkAPI)=>{
+    try {
+      const response= await registerOwner(ownerData)
+      console.log("Registered", response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message)
     }
   }
 )
@@ -26,7 +39,6 @@ export const loginThunk = createAsyncThunk(
       localStorage.setItem("token", response.token);
       return response;
     } catch (error) {
-      // console.log("Failed to login user", error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -93,12 +105,14 @@ export const deactivateUserThunk = createAsyncThunk(
 export const updateUserThunk = createAsyncThunk(
   "auth/updateUser",
   async (user, thunkAPI) => {
+    console.log(user)
     try {
       const response = await updateUser(user);
-      consoke.log(response)
+      console.log(response)
       return response;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      console.log("Error Occurred : ", error.response.data)
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );

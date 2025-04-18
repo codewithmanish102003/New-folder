@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUserThunk } from "../../app/features/auth/authThunk";
 import { useDispatch } from "react-redux";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,22 +15,11 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (success || error) {
-      const timer = setTimeout(() => {
-        setSuccess("");
-        setError("");
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [success, error]);
 
   const handleChange = (e) => {
     setFormData({
@@ -42,16 +32,16 @@ const Register = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     try {
       const response = await dispatch(registerUserThunk(formData)).unwrap();
-      console.log("Registration successful:", response.message);
-      navigate("/login", { state: { success: response.message } });
+      toast.success(response.message);
+      navigate("/login");
     } catch (error) {
-      setError(error || "Registration failed. Please try again.");
+      toast.error(error || "Registration failed. Please try again.");
     }
   };
 
@@ -73,17 +63,6 @@ const Register = () => {
         {/* Registration Form */}
         <div className="flex-1 order-1 lg:order-2">
           <div className="bg-white py-6 sm:py-8 px-4 sm:px-6 shadow-xl rounded-xl">
-            {success && (
-              <div className="bg-purple-100 border border-purple-400 text-purple-700 px-4 py-3 rounded relative mb-4">
-                <span className="block sm:inline">{success}</span>
-              </div>
-            )}
-            {error && (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-                <span className="block sm:inline">{error}</span>
-              </div>
-            )}
-
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Create your account</h2>
 
             <form onSubmit={handleRegister} className="space-y-4">

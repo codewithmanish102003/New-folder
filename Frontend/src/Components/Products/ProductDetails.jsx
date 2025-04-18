@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductByIdThunk } from '../../app/features/product/productThunk';
 import { addToCartThunk } from "../../app/features/cart/cartThunk"
+import {toast} from "react-toastify"
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,41 +15,27 @@ const ProductDetails = () => {
     error: state.products.error,
   }));
   const { isLoggedIn } = useSelector((state) => state.auth); // Assuming you have an auth slice for login status
-  const [success, setSuccess] = useState("");
-  const [err, setErr] = useState("");
   // const relatedProducts = useSelector((state) => state.products.products); // Assuming related products are fetched elsewhere
 
   useEffect(() => {
     dispatch(fetchProductByIdThunk(id));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    if (success || error) {
-      const timer = setTimeout(() => {
-        setSuccess("");
-        setErr("");
-      }, 5000); // 5 seconds
-      return () => clearTimeout(timer);
-    }
-  }, [success, error,err]);
-
   const handleAddToCart = async (e) => {
       e.preventDefault();
-      setSuccess("");
-      setErr("");
       if (!isLoggedIn) {
-        setErr("You must be logged in");
+        toast.error("You must be logged in");
       }else{
       try {
         const response=await dispatch(addToCartThunk(product));
         console.log(response)
         if (response.payload.message) {
-        setSuccess(response.payload.message)
+        toast.success(response.payload.message)
         }else{
-          setErr(response.payload.error)
+          toast.error(response.payload.error)
         }
       } catch (err) {
-        setErr(err?.message || "Failed to add to cart");
+        toast.error(err?.message || "Failed to add to cart");
       }
     }
     };
@@ -58,17 +45,6 @@ const ProductDetails = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
-      </div>
-    );
-  }
-
-  if (status === 'failed') {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong className="font-bold">Error!</strong>
-          <span className="block sm:inline">{error}</span>
-        </div>
       </div>
     );
   }
@@ -111,17 +87,6 @@ const ProductDetails = () => {
             Buy Now
           </Link>
           </div>
-          
-          {success && (
-            <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-lg">
-              {success}
-            </div>
-          )}
-          {err && (
-            <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-lg">
-              {err}
-            </div>
-          )}
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 import { Star, StarHalf } from "lucide-react"
-import { useState,useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToCartThunk } from "../../app/features/cart/cartThunk"
 import { useSelector } from "react-redux"
+import {toast} from "react-toastify"
 
 const formatCurrency = (amount) => {
   return new Intl.NumberFormat("en-IN", {
@@ -13,39 +13,26 @@ const formatCurrency = (amount) => {
 }
 
 const ProductCard = ({ product }) => {
-  const [success, setSuccess] = useState("")
-  const [error, setError] = useState("")
+
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  useEffect(() => {
-      if (success || error) {
-        const timer = setTimeout(() => {
-          setSuccess("");
-          setError("");
-        }, 5000); // 5 seconds
-  
-        return () => clearTimeout(timer);
-      }
-    }, [success, error]);
-
   const handleAddToCart = async (e) => {
     e.preventDefault();
-    setSuccess("");
-    setError("");
+
     if (!isLoggedIn) {
-      setError("You must be logged in");
+      toast.error("You must be logged in");
     }else{
     try {
       const response=await dispatch(addToCartThunk(product));
       console.log(response)
       if (response.payload.message) {
-      setSuccess(response.payload.message)
+    toast.success(response.payload.message)
       }else{
-        setError(response.payload.error)
+        toast.error(response.payload.error)
       }
     } catch (err) {
-      setError(err?.message || "Failed to add to cart");
+      toast.error("Failed to add to cart");
     }
   }
   };
@@ -54,17 +41,6 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-    {error && (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-        <span className="block sm:inline">{error}</span>
-      </div>
-    )}
-    {success && (
-      <div className="bg-purple-100 border border-purple-400 text-purple-700 px-4 py-3 rounded relative mb-4" role="alert">
-        <span className="block sm:inline">{success}</span>
-      </div>
-    )}
-    
     <div className="flex flex-col sm:flex-row w-full max-w- rounded-lg overflow-hidden border border-gray-200 shadow-md bg-white">
       {/* Image container - full width on mobile, 1/4 on tablet+ */}
       <div className="w-full sm:w-1/3 md:w-1/4 relative border-b sm:border-b-0 sm:border-r border-gray-200 flex items-center justify-center p-4">

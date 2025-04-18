@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, logoutThunk, registerUserThunk, fetchUserDetailsThunk, updateUserThunk } from "./authThunk";
+import { loginThunk, logoutThunk, registerUserThunk, fetchUserDetailsThunk, updateUserThunk,registerOwnerThunk } from "./authThunk";
 
 const token = localStorage.getItem("token");
 
@@ -66,6 +66,13 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
+      .addCase(registerOwnerThunk.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(registerOwnerThunk.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
       .addCase(fetchUserDetailsThunk.fulfilled, (state, action) => {
         state.token = action.payload.token;
         state.status = "succeeded";
@@ -77,13 +84,14 @@ const authSlice = createSlice({
           state.phone = action.payload.contact
           state.email = action.payload.email;
           state.gstno = action.payload.gstno;
+          state.id= action.payload._id;
         } else {
           state.firstname = action.payload.firstname;
           state.lastname = action.payload.lastname
           state.phone = action.payload.contact
           state.email = action.payload.email;
           state.gender = action.payload.gender
-
+          state.id= action.payload._id;
         }
       })
       .addCase(fetchUserDetailsThunk.rejected, (state, action) => {

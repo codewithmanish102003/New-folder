@@ -12,9 +12,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteUserThunk, logoutThunk, updateUserThunk } from '../../app/features/auth/authThunk';
+import {toast} from "react-toastify"
 
 function Profile() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const id= useSelector((state) => state.auth.id);
   const firstname = useSelector((state) => state.auth.firstname);
   const lastname = useSelector((state) => state.auth.lastname);
   const email = useSelector((state) => state.auth.email);
@@ -27,7 +29,6 @@ function Profile() {
   const [gender, setGender] = useState(gen);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting,setIsDeleting]=useState()
-  const [error,setError]=useState(null)
   const [firstnameState, setFirstname] = useState(firstname);
   const [lastnameState, setLastname] = useState(lastname);
   const [emailState, setEmail] = useState(email);
@@ -41,28 +42,41 @@ function Profile() {
   const handleDeleteAccount = async () => {
     try {
       await dispatch(deleteUserThunk(email));
+      toast.success("Account deleted Successfully")
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      window.location.href = '/';
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
       setIsDeleting(false);
     }
   };
 
 
-  const handleUpdateProfile = async (e) => {
-    e.preventDefault();
-    try {
-      if (!firstnameState || !lastnameState || !emailState || !phoneState) {
-        throw new Error('Please fill in all fields');
-      }
-      const response = await dispatch(updateUserThunk(firstnameState, lastnameState, emailState, phoneState));
-      console.log(response);
-      setIsEditing(false);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+ const handleUpdateProfile = async (e) => {
+         e.preventDefault();
+         try {
+           if (!firstnameState || !lastnameState || !emailState || !phoneState) {
+             throw new Error('Please fill in all fields');
+           }
+       
+           const userData = {
+             id: id,
+             firstname: firstnameState,
+             lastname: lastnameState,
+             email: emailState,
+             contact: phoneState,
+           };
+       
+           console.log("Sending data to backend:", userData); // Debug log
+       
+           const response = await dispatch(updateUserThunk(userData)).unwrap();
+           
+           toast.success(response.message || "Profile Updated Successfully!");
+           setIsEditing(false);
+         } catch (error) {
+           toast.error(error.error || "Profile update failed. Please try again.");
+         }
+       };
   return (
     <>
       <div className="min-h-screen bg-gray-50">
@@ -215,13 +229,13 @@ function Profile() {
                         <div className='flex gap-2'>
                                             <button
                                                 type="submit"
-                                                className="bg-purple-500 text-white py-2 px-4 rounded-md mt-4"
+                                                className="bg-purple-500 text-white py-2 px-4 rounded-md mt-4 cursor-pointer"
                                             >
                                                 Save Changes
                                             </button>
                                             <button
                                                 onClick={() => setIsEditing(null)}
-                                                className="bg-red-500 text-white py-2 px-4 rounded-md mt-4"
+                                                className="bg-red-500 text-white py-2 px-4 rounded-md mt-4 cursor-pointer"
                                             >
                                                 Cancel
                                             </button>

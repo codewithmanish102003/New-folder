@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCartProductsThunk, removeProductThunk, addToCartThunk, updateQuantityThunk } from "./cartThunk";
+import { addToCartThunk, fetchCartProductsThunk, removeProductThunk, updateQuantityThunk } from "./cartThunk";
 
 const initialState = {
   status: 'active',
@@ -39,23 +39,25 @@ const cartSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(removeProductThunk.fulfilled, (state, action) => {
+        const { productId } = action.payload;
+        state.cart = state.cart.filter(item => item.product._id !== productId); // Remove item locally
         state.status = "succeeded";
-        state.cart = state.cart.filter(item => item._id !== action.payload._id);
       })
       .addCase(removeProductThunk.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(updateQuantityThunk.fulfilled, (state, action) => {
-        const cartItemIndex = state.cart.findIndex(item => item._id === action.payload._id);
-        if (cartItemIndex !== -1) {
-          state.cart[cartItemIndex] = action.payload;
-          state.status="succeeded"
-          
+        const { productId, quantity } = action.payload;
+        const cartItem = state.cart.find(item => item.product._id === productId);
+        if (cartItem) {
+          cartItem.quantity = quantity; // Update quantity locally
         }
+        state.cart = [...state.cart]; // Create a new array to trigger re-render
+        state.status = "succeeded";
       })
       .addCase(updateQuantityThunk.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload;
       })
   }

@@ -24,13 +24,8 @@ const ProductCard = ({ product }) => {
       toast.error("You must be logged in");
     }else{
     try {
-      const response=await dispatch(addToCartThunk(product));
-      console.log(response)
-      if (response.payload.message) {
-    toast.success(response.payload.message)
-      }else{
-        toast.error(response.payload.error)
-      }
+      await dispatch(addToCartThunk(product));
+      toast.success("Product added to cart successfully");
     } catch (err) {
       toast.error("Failed to add to cart");
     }

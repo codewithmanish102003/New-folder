@@ -47,6 +47,10 @@ export const updateQuantity = async (productId, operation) => {
     const response = await axiosInstance.put(`/cart/updatequantity/${productId}`,{operation:operation},  { headers: { "Content-Type": "application/json" } },{
       withCredentials: true
     });
+    console.log(response)
+    if (response.status !== 200) {
+      throw new Error('Failed to update quantity');
+    }
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to update quantity");

@@ -6,26 +6,29 @@ const router = express.Router();
 const mongoose=require("mongoose")
 
 // 1. Add to Cart
-router.post('/addtocart/:id', isLoggedInUser , async (req, res) => {
+router.post('/addtocart/:id', isLoggedInUser, async (req, res) => {
   try {
     const userId = req.user._id;
     const productId = req.params.id;
 
-    // Check if product is already in cart
     const existingCart = await cartModel.findOne({ user: userId, product: productId });
     if (existingCart) {
-      res.json({ error: "Product is already added"});
-    } else {
-      // Create a new cart item
-      const newCartItem = new cartModel({ user: userId, product: productId, quantity: 1 });
-      await newCartItem.save();
-      res.status(201).json({ message: "Product added to cart"});
+      return res.status(400).json({ error: "Product is already added" });
     }
+
+    const newCartItem = new cartModel({ user: userId, product: productId, quantity: 1 });
+    await newCartItem.save();
+
+    const populatedCartItem = await cartModel
+      .findById(newCartItem._id)
+      .populate('product'); // Populate the product field
+
+    res.status(201).json({ message: "Product added to cart", cartItem: populatedCartItem });
   } catch (err) {
-    res.status(400).json({ error: "Something went wrong"});
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 // 2. Update Quantity
 router.put('/updatequantity/:id', isLoggedInUser , async (req, res) => {
     try {
@@ -51,8 +54,12 @@ router.put('/updatequantity/:id', isLoggedInUser , async (req, res) => {
       if (!cartItem) {
         return res.status(404).json({ error: 'Cart item not found' });
       }
-    req.flash('success',"Quantity Updated")
-      res.status(200).json({ message: 'Quantity updated successfully', cartItem,flash:req.flash() });
+      res.status(200).json({ message: 'Quantity updated successfully', cartItem: {
+        _id: cartItem._id,
+        product: cartItem.product,
+        quantity: cartItem.quantity,
+        user: cartItem.user
+      } });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });

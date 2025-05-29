@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { fetchUserDetailsThunk } from './app/features/auth/authThunk';
@@ -12,11 +13,11 @@ import Customer from './Components/Dashboard/Customer';
 import Owner from './Components/Dashboard/Owner';
 import Home from './Components/Main/Home';
 import Footer from './Components/Partials/Footer';
+import LineBreak from './Components/Partials/LineBreak';
 import NavigationBar from './Components/Partials/NavigationBar';
+import Payments from './Components/Payments/Payments';
 import ProductDetails from './Components/Products/ProductDetails';
 import Products from './Components/Shop/Products';
-import Payments from './Components/Payments/Payments';
-import LineBreak from './Components/Partials/LineBreak';
 
 const App = () => {
   const dispatch = useDispatch();

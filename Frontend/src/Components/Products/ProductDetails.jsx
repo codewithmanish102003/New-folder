@@ -1,20 +1,20 @@
-import React, { useEffect,useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from "react-toastify";
+import { addToCartThunk } from "../../app/features/cart/cartThunk";
 import { fetchProductByIdThunk } from '../../app/features/product/productThunk';
-import { addToCartThunk } from "../../app/features/cart/cartThunk"
-import {toast} from "react-toastify"
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { product, status, error } = useSelector((state) => ({
     product: state.products.product,
     status: state.products.status,
     error: state.products.error,
   }));
-  const { isLoggedIn } = useSelector((state) => state.auth); // Assuming you have an auth slice for login status
+  const { isLoggedIn } = useSelector((state) => state.auth);
   // const relatedProducts = useSelector((state) => state.products.products); // Assuming related products are fetched elsewhere
 
   useEffect(() => {
@@ -38,6 +38,27 @@ const ProductDetails = () => {
         toast.error(err?.message || "Failed to add to cart");
       }
     }
+    };
+
+    const handleBuyNow = async (e) => {
+      e.preventDefault();
+      if (!isLoggedIn) {
+        toast.error("You must be logged in");
+        return;
+      }
+      // Optionally, add to cart here if you want
+      navigate('/payments', {
+        state: {
+          product: {
+            id: product._id,
+            name: product.name,
+            price: product.price,
+            discount: product.discount,
+            finalPrice: (product.price - (product.price * product.discount) / 100),
+            image: product.image,
+          }
+        }
+      });
     };
 
   // Loading, error, and product not found states
@@ -83,9 +104,9 @@ const ProductDetails = () => {
           <button className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors" onClick={handleAddToCart}>
             Add to Cart
           </button>
-          <Link to="/payments" className="ml-4 bg-gray-400 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition-colors">
+          <button onClick={handleBuyNow} className="ml-4 bg-gray-400 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition-colors">
             Buy Now
-          </Link>
+          </button>
           </div>
         </div>
       </div>

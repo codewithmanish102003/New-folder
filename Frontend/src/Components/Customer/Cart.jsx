@@ -1,11 +1,13 @@
-import React, { useEffect, useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartProductsThunk, removeProductThunk, updateQuantityThunk } from "../../app/features/cart/cartThunk";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { fetchCartProductsThunk, removeProductThunk, updateQuantityThunk } from "../../app/features/cart/cartThunk";
 import CartItem from "./CartItem";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cart, status } = useSelector((state) => state.cart);
 
   useEffect(() => {
@@ -116,7 +118,17 @@ const Cart = () => {
                 <p className="text-gray-500 text-sm mt-1">Including GST</p>
               </div>
             </div>
-            <button className="w-full mt-6 bg-purple-500 text-white py-3 rounded-lg hover:bg-purple-600 transition-colors">
+            <button
+              className="w-full mt-6 bg-purple-500 text-white py-3 rounded-lg hover:bg-purple-600 transition-colors"
+              onClick={() =>
+                navigate("/payments", {
+                  state: {
+                    cartTotal: calculateGrandTotal(),
+                    cartItems: cart, // optional: send cart items too
+                  },
+                })
+              }
+            >
               Proceed to Checkout
             </button>
           </div>

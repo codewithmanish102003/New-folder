@@ -25,23 +25,19 @@ export default function UserDropdown({ setIsDropdownOpen }) {
         dispatch(logoutThunk());
     };
 
+    
     return (
-        <div className="absolute right-0 mt-2 w-56 bg-white border rounded-lg shadow-lg" ref={dropdownRef}>
-            <ul className="py-2">
+        <div className="absolute right-0 mt-2 w-50 bg-white border rounded-lg shadow-lg" ref={dropdownRef}>
+            <ul className="p-0 m-0">
                 {!isLoggedIn && (
                     <div className="w-full flex px-4 py-2">
-                        <div className="w-1/2 flex justify-center items-center hover:bg-purple-500 rounded">
+                        <div className="w-1/2 flex justify-center items-center hover:border-t-2 rounded">
                             <Link to="/login">Login</Link>
                         </div>
-                        <div className="w-1/2 flex justify-center items-center hover:bg-purple-500 rounded">
+                        <div className="w-1/2 flex justify-center items-center hover:border-t-2 rounded">
                             <Link to="/register">SignUp</Link>
                         </div>
                     </div>
-                )}
-                {isLoggedIn && role === "owner" && (
-                    <Link to="/owner" className="w-full">
-                        <DropdownItem icon={<User />} text="Profile" />
-                    </Link>
                 )}
                 {isLoggedIn && role === "user" && (
                     <>
@@ -68,7 +64,7 @@ export default function UserDropdown({ setIsDropdownOpen }) {
 // Reusable Dropdown Item Component
 function DropdownItem({ icon, text }) {
     return (
-        <li className="flex items-center px-4 py-2 text-gray-700 hover:bg-purple-500 cursor-pointer">
+        <li className="flex items-center px-4 py-2 text-gray-700 hover:border-t-2 hover:border-b-2 cursor-pointer">
             {icon && <span className="w-5 h-5 mr-3">{icon}</span>}
             {text}
         </li>

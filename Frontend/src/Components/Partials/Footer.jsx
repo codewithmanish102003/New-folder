@@ -48,20 +48,16 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
           <div className="flex space-x-4">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              {/* <i className="fab fa-facebook-f text-purple-600"></i> */}
-              <FacebookIcon size={24} className='text-purple-400 hover:text-purple-600' />
+              <i className="fab fa-facebook-f"></i>
             </a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              {/* <i className="fab fa-twitter"></i> */}
-              <TwitterIcon size={24} className='text-purple-400 hover:text-purple-600' />
+              <i className="fab fa-twitter"></i>
             </a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              {/* <i className="fab fa-instagram"></i> */}
-              <InstagramIcon size={24} className='text-purple-400 hover:text-purple-600' />
+              <i className="fab fa-instagram"></i>
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              {/* <i className="fab fa-linkedin-in"></i> */}
-              <LinkedinIcon size={24} className='text-purple-400 hover:text-purple-600' />
+              <i className="fab fa-linkedin-in"></i>
             </a>
           </div>
         </div>
@@ -69,7 +65,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-400">
-        <p>© 2025 Your Website. All rights reserved.</p>
+        <p>© 2025 starwayCollections. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { FacebookIcon,TwitterIcon,InstagramIcon,LinkedinIcon } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -33,8 +32,9 @@ const Footer = () => {
           </p>
           <form className="flex">
             <input
-              type="email"
-              placeholder="Enter your email"
+              type="tel"
+              name="whatsapp"
+              placeholder="Enter your Whatsapp number"
               className="w-full p-2 border-1 border-purple-400 rounded-l-md focus:outline-none"
             />
             <button className="bg-purple-500 border-1 border-purple-400 text-white px-4 rounded-r-md hover:bg-purple-600">
@@ -50,8 +50,8 @@ const Footer = () => {
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              <i className="fab fa-twitter"></i>
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+              <i className="fab fa-x"></i>
             </a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
               <i className="fab fa-instagram"></i>

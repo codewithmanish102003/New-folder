@@ -14,6 +14,13 @@ const categories = [
   { value: "shirts", label: "Shirts" },
 ];
 
+const priceRanges = [
+  { value: "", label: "All Prices" },
+  { value: "0-499", label: "Under ₹500" },
+  { value: "500-999", label: "₹500 - ₹999" },
+  { value: "1000-1999", label: "₹1000 - ₹1999" },
+  { value: "2000-999999", label: "₹2000 & Above" },
+];
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -21,6 +28,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filter, setFilter] = useState("");
   const [category, setCategory] = useState("");
+  const [priceRange, setPriceRange] = useState("");
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -38,18 +46,22 @@ const Products = () => {
         product.category && product.category.toLowerCase() === category.toLowerCase()
       );
     }
+    if (priceRange) {
+      const [min, max] = priceRange.split("-").map(Number);
+      filtered = filtered.filter((product) =>
+        product.price >= min && product.price <= max
+      );
+    }
     setFilteredProducts(filtered);
-  }, [filter, category, products]);
+  }, [filter, category, priceRange, products]);
   
-
   return (
     <div className="min-h-screen flex flex-col items-center overflow-hidden bg-gray-50">
       <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-8">
           {/* Filter Section */}
           <div className="md:col-span-1 w-full mb-4 md:mb-0">
-            <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 md:sticky md:top-0 md:left-10 md:w-64 md:h-[100vh] md:max-h-[84vh] md:shadow-lg"
-            >
+            <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 md:sticky md:top-0 md:left-10 md:w-64 md:h-[100vh] md:max-h-[84vh] md:shadow-lg">
               <h2 className="text-xl font-semibold mb-6 text-purple-600">Filters</h2>
               {/* Hide search on mobile */}
               <div className="mb-4 hidden md:block">
@@ -64,16 +76,25 @@ const Products = () => {
               </div>
               {/* Category: select on mobile, radios on desktop */}
               <div>
-                <label className="block text-gray-700 mb-2 font-medium">Category</label>
                 {/* Mobile: select */}
-                <div className="block md:hidden">
+                <div className="block md:hidden mb-4">
                   <select
-                    className="w-full p-2 border rounded-lg"
+                    className="w-full p-2 border rounded-lg mb-2"
                     value={category}
                     onChange={e => setCategory(e.target.value)}
                   >
                     {categories.map(cat => (
                       <option key={cat.value} value={cat.value}>{cat.label}</option>
+                    ))}
+                  </select>
+                  {/* Price Range: select for mobile */}
+                  <select
+                    className="w-full p-2 border rounded-lg"
+                    value={priceRange}
+                    onChange={e => setPriceRange(e.target.value)}
+                  >
+                    {priceRanges.map(range => (
+                      <option key={range.value} value={range.value}>{range.label}</option>
                     ))}
                   </select>
                 </div>
@@ -92,8 +113,20 @@ const Products = () => {
                       <span className="text-gray-700">{cat.label}</span>
                     </label>
                   ))}
-
-                  <label className="block text-gray-700 mb-2 font-medium">Price Range</label>
+                  <label className="block text-gray-700 mb-2 font-medium mt-4">Price Range</label>
+                  {priceRanges.map((range) => (
+                    <label key={range.value} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="priceRange"
+                        value={range.value}
+                        checked={priceRange === range.value}
+                        onChange={() => setPriceRange(range.value)}
+                        className="accent-purple-500"
+                      />
+                      <span className="text-gray-700">{range.label}</span>
+                    </label>
+                  ))}
                 </div>
               </div>
             </div>

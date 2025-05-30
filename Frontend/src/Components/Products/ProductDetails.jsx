@@ -32,7 +32,7 @@ const ProductDetails = () => {
         if (response.payload.message) {
         toast.success(response.payload.message)
         }else{
-          toast.error(response.payload.error)
+          toast.error(response.payload.error || "Failed to add to cart");
         }
       } catch (err) {
         toast.error(err?.message || "Failed to add to cart");

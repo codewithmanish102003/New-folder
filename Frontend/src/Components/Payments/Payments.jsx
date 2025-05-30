@@ -337,7 +337,7 @@ const Payments = () => {
             ) : (
               <>
                 <i className="fas fa-lock text-sm"></i>
-                <span>Pay ₹{total.toFixed(2)} Now</span>
+                <span>Place Your Order</span>
                 <i className="fas fa-arrow-right text-sm"></i>
               </>
             )}

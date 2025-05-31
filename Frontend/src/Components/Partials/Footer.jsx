@@ -106,7 +106,7 @@ const Footer = () => {
               <i className="fab fa-instagram"></i>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/107627477/admin/dashboard/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white"

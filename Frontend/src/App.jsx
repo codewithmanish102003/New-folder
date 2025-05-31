@@ -18,6 +18,9 @@ import NavigationBar from './Components/Partials/NavigationBar';
 import Payments from './Components/Payments/Payments';
 import ProductDetails from './Components/Products/ProductDetails';
 import Products from './Components/Shop/Products';
+import AboutUs from './Components/Partials/AboutUs';
+import TermsAndConditions from './Components/Partials/TermsAndConditions';
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -68,6 +71,9 @@ const App = () => {
             {role === 'owner' && (
               <Route path="/owner" element={<Owner />} />
             )}
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+
           </Routes>
         </div>
         <Footer />

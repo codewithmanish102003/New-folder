@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -8,7 +9,8 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">About Us</h3>
           <p className="text-sm text-gray-400">
-            Your trusted e-commerce platform for the best products and deals. We aim to provide a seamless shopping experience.
+            Your trusted e-commerce platform for the best products and deals. We
+            aim to provide a seamless shopping experience.
           </p>
         </div>
 
@@ -16,11 +18,43 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
-            <li><a href="/about" className="text-sm text-gray-400 hover:text-white">About Us</a></li>
-            <li><a href="/contact" className="text-sm text-gray-400 hover:text-white">Contact Us</a></li>
-            <li><a href="/faq" className="text-sm text-gray-400 hover:text-white">FAQs</a></li>
-            <li><a href="/terms" className="text-sm text-gray-400 hover:text-white">Terms & Conditions</a></li>
-            <li><a href="/privacy" className="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+            <li>
+              <Link
+                to="/about"
+                className="text-sm text-gray-400 hover:text-white"
+              >
+                About Us
+              </Link>
+            </li>
+            <li>
+              <a
+                href="/contact"
+                className="text-sm text-gray-400 hover:text-white"
+              >
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a href="/faq" className="text-sm text-gray-400 hover:text-white">
+                FAQs
+              </a>
+            </li>
+            <li>
+              <Link
+                to="/terms-and-conditions"
+                className="text-sm text-purple-300 hover:underline"
+              >
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <a
+                href="/privacy"
+                className="text-sm text-gray-400 hover:text-white"
+              >
+                Privacy Policy
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -47,16 +81,36 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
           <div className="flex space-x-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+            <a
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <i className="fab fa-x"></i>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <i className="fab fa-linkedin-in"></i>
             </a>
           </div>

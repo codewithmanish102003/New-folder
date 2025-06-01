@@ -2,59 +2,39 @@ import React from 'react';
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-50 min-h-screen text-gray-800">
-      <div className="max-w-5xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-center mb-8 text-purple-600">About Starway Collections</h1>
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-blue-100 px-6 py-12">
+      <div className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-md border-l-4 border-purple-500">
+        <h1 className="text-4xl font-bold text-purple-800 mb-6 text-center">About Us</h1>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">🌟 Who We Are</h2>
-          <p className="text-lg leading-relaxed">
-            Starway Collections was founded with a simple vision:
-            <br />
-            <em>"To redefine online shopping by combining style, quality, and simplicity."</em>
-            <br />
-            We are a vibrant community of trend-lovers who believe in the power of choice and quality.
-          </p>
-        </section>
+        <p className="text-gray-700 mb-6 text-lg">
+          <strong>Starway Collections</strong> is your gateway to luxury fashion and curated elegance. Founded with a vision to bring premium quality accessories and timeless styles to your doorstep, we specialize in <span className="text-purple-700 font-medium">premium bags, designer glasses</span>, and unique seasonal collections.
+        </p>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">🧾 What We Offer</h2>
-          <ul className="list-disc pl-6 space-y-2 text-lg">
-            <li>Wide range of handpicked, high-quality products.</li>
-            <li>Seamless and secure shopping experience.</li>
-            <li>Reliable and responsive customer service.</li>
-          </ul>
-        </section>
+        <h2 className="text-2xl font-semibold text-purple-700 mb-2">🌟 Our Mission</h2>
+        <p className="text-gray-700 mb-4">
+          To redefine everyday style by offering carefully selected, fashion-forward products that express individuality, elegance, and confidence.
+        </p>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">🚀 Our Mission</h2>
-          <p className="text-lg leading-relaxed">
-            To provide our customers with affordable luxury, trendy selections, and a user-friendly shopping journey—so every purchase feels just right.
-          </p>
-        </section>
+        <h2 className="text-2xl font-semibold text-purple-700 mb-2">👜 What We Offer</h2>
+        <ul className="list-disc list-inside text-gray-700 space-y-1 mb-4">
+          <li>Premium handcrafted bags for all occasions</li>
+          <li>Designer glasses that blend style with comfort</li>
+          <li>Seasonal collections curated with the latest trends</li>
+        </ul>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">🔒 Our Promise</h2>
-          <ul className="list-disc pl-6 space-y-2 text-lg">
-            <li><strong>Authenticity</strong> – Only genuine and high-quality products.</li>
-            <li><strong>Trust</strong> – Transparent pricing, policies, and practices.</li>
-            <li><strong>Innovation</strong> – Constantly evolving to serve you better.</li>
-          </ul>
-        </section>
+        <h2 className="text-2xl font-semibold text-purple-700 mb-2">💜 Why Choose Us?</h2>
+        <ul className="list-disc list-inside text-gray-700 space-y-1 mb-4">
+          <li>High-quality and stylish products</li>
+          <li>Reliable customer service</li>
+          <li>Fast and secure delivery</li>
+          <li>Regular updates and seasonal offers</li>
+        </ul>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">🤝 Let’s Connect</h2>
-          <p className="text-lg leading-relaxed">
-            We’d love to hear from you. Whether it's feedback, collaboration, or just a hello — we’re always listening.
-          </p>
-        </section>
+        <p className="text-gray-700 mt-6">
+          Whether you're elevating your wardrobe or gifting someone special, Starway Collections is here to make every moment stylish. Thank you for choosing us to be part of your fashion journey!
+        </p>
 
-        <section className="bg-white rounded-xl shadow-md p-6 mt-12">
-          <h3 className="text-xl font-semibold mb-4">📫 Contact Information</h3>
-          <p className="text-lg"><strong>Email:</strong> support@starwaycollections.com</p>
-          <p className="text-lg"><strong>Location:</strong> Jaipur, Rajasthan, India</p>
-          <p className="text-lg"><strong>Phone:</strong> +91-XXXXXXXXXX</p>
-        </section>
+        <p className="text-center mt-10 text-sm text-gray-500">— The Starway Collections Team</p>
       </div>
     </div>
   );

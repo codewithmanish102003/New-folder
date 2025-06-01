@@ -21,6 +21,8 @@ import Products from './Components/Shop/Products';
 import AboutUs from './Components/Partials/AboutUs';
 import TermsAndConditions from './Components/Partials/TermsAndConditions';
 import FAQs from './Components/Partials/FAQ';
+import PrivacyPolicy from './Components/Partials/PrivacyPolicy';
+import ContactUs from './Components/Partials/ContactUs';
 
 
 const App = () => {
@@ -75,6 +77,11 @@ const App = () => {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/faqs" element={<FAQs />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+
+            
+
 
 
           </Routes>

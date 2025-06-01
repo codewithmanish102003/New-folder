@@ -15,7 +15,7 @@ const db = require('./config/mongoose_connection');
 
 app.use(cors({
     // origin:"https://localhost:5173",
-  origin: 'https://starwaycollections.netlify.app/',
+  origin: process.env.FRONTEND_ORIGINS,
   credentials: true
 }));
 app.use(express.json());

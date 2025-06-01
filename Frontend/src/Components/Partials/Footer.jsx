@@ -27,33 +27,33 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <a
-                href="/contact"
-                className="text-sm text-gray-400 hover:text-white"
-              >
+              <Link to="/contact-us" className="text-sm  text-gray-400 hover:text-white">
                 Contact Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/faq" className="text-sm text-gray-400 hover:text-white">
+              <Link
+                to="/faqs"
+                className="text-sm text-gray-400 hover:text-white"
+              >
                 FAQs
-              </a>
+              </Link>
             </li>
             <li>
               <Link
                 to="/terms-and-conditions"
-                className="text-sm text-gray-400 hover:underline"
+                className="text-sm text-purple-300 hover:underline"
               >
                 Terms & Conditions
               </Link>
             </li>
             <li>
-              <a
-                href="/privacy"
+              <Link
+                to="/privacy-policy"
                 className="text-sm text-gray-400 hover:text-white"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

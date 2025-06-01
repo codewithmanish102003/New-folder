@@ -1,16 +1,11 @@
-const mongoose=require('mongoose')
-const config = require('config');
-const debug=require('debug')("development:mongoose")
-
+const mongoose = require('mongoose');
+require('dotenv').config();
+const debug = require('debug')("development:mongoose");
 
 mongoose
-.connect(`${config.get("MONGODB_URI")}/starwayCollections`)
-.then(()=>{
-    debug("connected");  
-})
-.catch((err)=>{
-debug(err);
+  .connect(`${process.env.MONGODB_URI}/starwayCollections`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
 
-})
-
-module.exports=mongoose.connection;
+module.exports = mongoose.connection;

@@ -14,8 +14,8 @@ const cartRouter = require('./routes/cartRouter');
 const db = require('./config/mongoose_connection');
 
 app.use(cors({
-    // origin:"https://localhost:5173",
-  origin: process.env.FRONTEND_ORIGINS,
+    origin:process.env.FRONTED_ORIGINS ||"http://localhost:5173",
+//   origin: process.env.FRONTEND_ORIGINS,
   credentials: true
 }));
 app.use(express.json());

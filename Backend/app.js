@@ -13,11 +13,15 @@ const cartRouter = require('./routes/cartRouter');
 
 const db = require('./config/mongoose_connection');
 
+const allowedOrigins = process.env.NODE_ENV === "production"
+  ? ["https://starwaycollections.netlify.app"]
+  : ["http://localhost:5173"];
+
 app.use(cors({
-    origin:"https://starwaycollections.netlify.app" ||"http://localhost:5173",
-//   origin: process.env.FRONTEND_ORIGINS,
+  origin: allowedOrigins,
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

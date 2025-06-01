@@ -29,7 +29,7 @@ router.post('/create', isLoggedInUser, upload.single('image'), async (req, res) 
     console.log("create product");
     
     try {
-        const { name, price, discount, bgcolor, panelcolor, textcolor, description } = req.body;
+        const { name, price, discount, description,category,stock,brand } = req.body;
         const ownerId = req.user._id; // This will only exist if the user is logged in
         const image = req.file ? req.file.buffer : null;
 
@@ -41,10 +41,6 @@ router.post('/create', isLoggedInUser, upload.single('image'), async (req, res) 
             name,
             price,
             discount,
-            bgcolor,
-            panelcolor,
-            textcolor,
-            description,
             description,
             category,
             stock,

@@ -20,6 +20,7 @@ import ProductDetails from './Components/Products/ProductDetails';
 import Products from './Components/Shop/Products';
 import AboutUs from './Components/Partials/AboutUs';
 import TermsAndConditions from './Components/Partials/TermsAndConditions';
+import FAQs from './Components/Partials/FAQ';
 
 
 const App = () => {
@@ -73,6 +74,8 @@ const App = () => {
             )}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/faqs" element={<FAQs />} />
+
 
           </Routes>
         </div>

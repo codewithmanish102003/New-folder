@@ -80,6 +80,9 @@ const App = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact-us" element={<ContactUs />} />
 
+
+            
+
             
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-
+// Contact us page
 const ContactUs = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-blue-100 px-6 py-12">

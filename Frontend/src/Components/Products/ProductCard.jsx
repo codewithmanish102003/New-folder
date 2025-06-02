@@ -43,7 +43,7 @@ const ProductCard = ({ product }) => {
           <img
             src={`data:image/jpeg;base64,${product.image}`}
             alt={product.name}
-            className="w-50 max-h-48 lg:max-h-40 sm:max-h-full object-contain"
+            className="w-full max-h-60 lg:max-h-40 sm:max-h-full object-contain"
           />
         ) : (
           <div className="w-full aspect-square max-h-48 sm:max-h-full flex items-center justify-center bg-gray-100 text-gray-500 text-sm">

@@ -12,7 +12,6 @@ const Shop = () => {
         dispatch(fetchProducts());
     }, [dispatch]);
 
-    // Example: pick first 4 products as featured (customize as needed)
     const featuredProducts = products.slice(0, 4);
 
     return (

@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 import authReducer from "./features/auth/authSlice";
@@ -20,11 +20,13 @@ const persistConfig = {
   whitelist: ['auth', 'cart'] // persist these slices
 };
 
-const persistedReducer = persistReducer(persistConfig, {
+const rootReducer = combineReducers({
   auth: authReducer,
   products: productReducer,
   cart: cartReducer,
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,

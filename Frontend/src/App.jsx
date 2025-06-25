@@ -44,7 +44,6 @@ const App = () => {
     <Router>
       <div className="flex flex-col min-h-screen">
         <NavigationBar />
-        <LineBreak />
         <div className="flex-grow bg-gray-50">
           <Routes>
             {role !== 'owner' && (

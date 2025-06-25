@@ -1,10 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { createProductThunk } from '../../app/features/product/productThunk';
-import { fetchOwnerProductsThunk, editProductThunk, deleteProductThunk } from '../../app/features/product/productThunk';
-import { logoutThunk,updateUserThunk } from "../../app/features/auth/authThunk"
 import {
     ChevronRight,
     CreditCard,
@@ -16,7 +9,12 @@ import {
     ShoppingBasket,
     User
 } from 'lucide-react';
-import { toast } from "react-toastify"
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import { logoutThunk, updateUserThunk } from "../../app/features/auth/authThunk";
+import { createProductThunk, deleteProductThunk, editProductThunk, fetchOwnerProductsThunk } from '../../app/features/product/productThunk';
 
 const Owner_Profile = () => {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -43,8 +41,10 @@ const Owner_Profile = () => {
 
     const handleLogout = () => {
         dispatch(logoutThunk());
-        toast.success("Successfully logged out!")
-        navigate("/login")
+        toast.success("Successfully logged out!");
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        navigate("/");
     };
 
     const handleDeleteAccount = async () => {

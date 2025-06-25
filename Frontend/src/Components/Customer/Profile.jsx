@@ -1,18 +1,18 @@
 import {
-    ChevronRight,
-    CreditCard,
-    Edit2,
-    Gift,
-    LogOut,
-    Package,
-    Settings,
-    User
+  ChevronRight,
+  CreditCard,
+  Edit2,
+  Gift,
+  LogOut,
+  Package,
+  Settings,
+  User
 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { deleteUserThunk, logoutThunk, updateUserThunk } from '../../app/features/auth/authThunk';
-import {toast} from "react-toastify"
 
 function Profile() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -34,9 +34,12 @@ function Profile() {
   const [emailState, setEmail] = useState(email);
   const [phoneState, setPhone] = useState(phone);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logoutThunk());
+    toast.success("Logout successful");
+    navigate("/");
   };
 
   const handleDeleteAccount = async () => {

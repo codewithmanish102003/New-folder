@@ -18,11 +18,12 @@ export const fetchCartProducts = async () => {
 //add to cart
 export const addToCart = async (product) => {
   try {
-    const response = await axiosInstance.post(`/cart/addtocart/${product}`, { withCredentials: true })
-    console.log(response)
-    return response.data
+    const response = await axiosInstance.post(`/cart/addtocart/${product}`, {}, { withCredentials: true });
+    console.log('Add to cart response:', response);
+    return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to add to cart")
+    console.error('Add to cart error:', error);
+    throw new Error(error.response?.data?.message || "Failed to add to cart");
   }
 };
 

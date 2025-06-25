@@ -22,44 +22,42 @@ const ProductDetails = () => {
   }, [dispatch, id]);
 
   const handleAddToCart = async (e) => {
-      e.preventDefault();
-      if (!isLoggedIn) {
-        toast.error("You must be logged in");
-      }else{
-      try {
-        const response=await dispatch(addToCartThunk(product));
-        console.log(response)
-        if (response.payload.message) {
-        toast.success(response.payload.message)
-        }else{
-          toast.error(response.payload.error || "Failed to add to cart");
-        }
-      } catch (err) {
-        toast.error(err?.message || "Failed to add to cart");
-      }
+    e.preventDefault();
+    if (!isLoggedIn) {
+      toast.error("You must be logged in");
+      return;
     }
-    };
+    
+    try {
+      const response = await dispatch(addToCartThunk(product)).unwrap();
+      console.log('Add to cart response:', response);
+      toast.success("Product added to cart successfully");
+    } catch (error) {
+      console.error('Add to cart error:', error);
+      toast.error(error || "Failed to add to cart");
+    }
+  };
 
-    const handleBuyNow = async (e) => {
-      e.preventDefault();
-      if (!isLoggedIn) {
-        toast.error("You must be logged in");
-        return;
-      }
-      // Optionally, add to cart here if you want
-      navigate('/payments', {
-        state: {
-          product: {
-            id: product._id,
-            name: product.name,
-            price: product.price,
-            discount: product.discount,
-            finalPrice: (product.price - (product.price * product.discount) / 100),
-            image: product.image,
-          }
+  const handleBuyNow = async (e) => {
+    e.preventDefault();
+    if (!isLoggedIn) {
+      toast.error("You must be logged in");
+      return;
+    }
+    // Optionally, add to cart here if you want
+    navigate('/payments', {
+      state: {
+        product: {
+          id: product._id,
+          name: product.name,
+          price: product.price,
+          discount: product.discount,
+          finalPrice: (product.price - (product.price * product.discount) / 100),
+          image: product.image,
         }
-      });
-    };
+      }
+    });
+  };
 
   // Loading, error, and product not found states
   if (status === 'loading') {

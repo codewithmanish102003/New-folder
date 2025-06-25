@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { LogOut, Menu, Search, ShoppingCart, User, X, ShoppingBag, LucideLogIn, ChevronDown, HomeIcon } from 'lucide-react';
-import { useSelector, useDispatch } from "react-redux";
+import { ChevronDown, HomeIcon, LogOut, LucideLogIn, Menu, Search, ShoppingBag, ShoppingCart, User, X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { logoutThunk } from "../../app/features/auth/authThunk";
 import UserDropdown from "./UserDropdown";
-import { toast } from "react-toastify";
 
 const NavigationBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const NavigationBar = () => {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const firstname = useSelector((state) => state.auth.firstname);
     const role = useSelector((state) => state.auth.role);
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const toggleMenu = () => {
@@ -23,6 +23,7 @@ const NavigationBar = () => {
     const handleLogout = () => {
         dispatch(logoutThunk());
         toast.success("Logout successful");
+        navigate("/");
     };
 
     const handleMouseEnter = () => {

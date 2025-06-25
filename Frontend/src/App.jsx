@@ -12,17 +12,17 @@ import Orders from './Components/Customer/Orders';
 import Customer from './Components/Dashboard/Customer';
 import Owner from './Components/Dashboard/Owner';
 import Home from './Components/Main/Home';
+import AboutUs from './Components/Partials/AboutUs';
+import ContactUs from './Components/Partials/ContactUs';
+import FAQs from './Components/Partials/FAQ';
 import Footer from './Components/Partials/Footer';
 import LineBreak from './Components/Partials/LineBreak';
 import NavigationBar from './Components/Partials/NavigationBar';
+import PrivacyPolicy from './Components/Partials/PrivacyPolicy';
+import TermsAndConditions from './Components/Partials/TermsAndConditions';
 import Payments from './Components/Payments/Payments';
 import ProductDetails from './Components/Products/ProductDetails';
 import Products from './Components/Shop/Products';
-import AboutUs from './Components/Partials/AboutUs';
-import TermsAndConditions from './Components/Partials/TermsAndConditions';
-import FAQs from './Components/Partials/FAQ';
-import PrivacyPolicy from './Components/Partials/PrivacyPolicy';
-import ContactUs from './Components/Partials/ContactUs';
 
 
 const App = () => {
@@ -68,11 +68,17 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login/owner_register" element={<Owner_Register />} />
-            {role === 'user' && (
-              <Route path="/profile" element={<Customer />} />
-            )}
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Customer />
+              </ProtectedRoute>
+            } />
             {role === 'owner' && (
-              <Route path="/owner" element={<Owner />} />
+              <Route path="/owner" element={
+                <ProtectedRoute>
+                  <Owner />
+                </ProtectedRoute>
+              } />
             )}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

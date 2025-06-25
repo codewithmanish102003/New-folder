@@ -1,14 +1,16 @@
-import { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Bell, Box, LogOut, Star, User } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { logoutThunk } from "../../app/features/auth/authThunk";
-import { User, LogOut, Star, Bell, Box } from "lucide-react";
 
 export default function UserDropdown({ setIsDropdownOpen }) {
     const dropdownRef = useRef(null);
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const role = useSelector((state) => state.auth.role);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -23,6 +25,8 @@ export default function UserDropdown({ setIsDropdownOpen }) {
 
     const handleLogout = () => {
         dispatch(logoutThunk());
+        toast.success("Logout successful");
+        navigate("/");
     };
 
     

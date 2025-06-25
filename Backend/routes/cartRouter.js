@@ -91,6 +91,7 @@ router.delete('/removefromcart/:id', isLoggedInUser , async (req, res) => {
 
 // 4. Fetching all Products from cart
 router.get('/cartproducts', isLoggedInUser, async (req, res) => {
+  console.log("cart products")
     try {
       const userId = req.user._id;
   

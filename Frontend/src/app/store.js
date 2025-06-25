@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 import authReducer from "./features/auth/authSlice";
-import productReducer from "./features/product/productSlice";
 import cartReducer from "./features/cart/cartSlice";
+import productReducer from "./features/product/productSlice";
+
 const initaialState={
   auth:{
     user:null,
@@ -11,13 +14,23 @@ const initaialState={
   }
 }
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['auth', 'cart'] // persist these slices
+};
+
+const persistedReducer = persistReducer(persistConfig, {
+  auth: authReducer,
+  products: productReducer,
+  cart: cartReducer,
+});
+
 const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    products: productReducer,
-    cart: cartReducer,
-  },
+  reducer: persistedReducer,
   preloadedState:initaialState,
 });
+
+export const persistor = persistStore(store);
 
 export default store;

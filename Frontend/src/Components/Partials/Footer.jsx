@@ -120,7 +120,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-400">
         <p>© 2025 starwayCollections. All rights reserved.</p>
-<h4>Developed By : Naveen Kumawat & Manish Prajapati<h4/>
+        <h4>Developed By : Naveen Kumawat & Manish Prajapati</h4>
 
       </div>
     </footer>

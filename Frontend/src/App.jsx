@@ -12,11 +12,11 @@ import Orders from './Components/Customer/Orders';
 import Customer from './Components/Dashboard/Customer';
 import Owner from './Components/Dashboard/Owner';
 import Home from './Components/Main/Home';
+import ScrollToTop from './Components/Partials/ScrollTop';
 import AboutUs from './Components/Partials/AboutUs';
 import ContactUs from './Components/Partials/ContactUs';
 import FAQs from './Components/Partials/FAQ';
 import Footer from './Components/Partials/Footer';
-import LineBreak from './Components/Partials/LineBreak';
 import NavigationBar from './Components/Partials/NavigationBar';
 import PrivacyPolicy from './Components/Partials/PrivacyPolicy';
 import TermsAndConditions from './Components/Partials/TermsAndConditions';
@@ -42,6 +42,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop/>
       <div className="flex flex-col min-h-screen">
         <NavigationBar />
         <div className="flex-grow bg-gray-50">

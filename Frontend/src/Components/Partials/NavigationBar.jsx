@@ -68,7 +68,7 @@ const NavigationBar = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-purple-700">💫wayCollections</span>
+              <span className="text-xl font-bold text-purple-700">💫wayCollections</span>
             </Link>
           </div>
 
@@ -107,7 +107,7 @@ const NavigationBar = () => {
           <div className="flex items-center gap-4">
             {/* Cart */}
             <Link to="/cart" className="relative group">
-              <ShoppingCart className="h-6 w-6 text-gray-700 group-hover:text-purple-600" />
+              <ShoppingCart className="h-5 w-5 text-gray-700 group-hover:text-purple-600" />
               {cart.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full px-1.5 py-0.5">{cart.length}</span>
               )}
@@ -124,7 +124,7 @@ const NavigationBar = () => {
           </div>
 
           {/* Hamburger for mobile */}
-          <div className="md:hidden flex items-center ml-2">
+          <div className="flex md:hidden items-center ml-1">
             <button onClick={toggleMenu} className="p-2 rounded-md text-gray-700 hover:text-purple-600 focus:outline-none">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>

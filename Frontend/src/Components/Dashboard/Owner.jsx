@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Owner_Profile from '../Owner/Owner_Profile';
 
 const Owner = () => {
